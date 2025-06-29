@@ -1,6 +1,5 @@
 ## Key Architectural Decisions
-Technical decisions are documented in `docs/ADRs/`. Key decisions include:
-- **ADR-001**: Transition from Singleton to Dependency Injection Pattern
+Technical decisions are documented in `docs/ADRs/`. 
 
 **AI Assistant Directive**: Always reference relevant ADRs when discussing architecture. Create or update ADRs for new architectural decisions.
 
