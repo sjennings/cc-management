@@ -50,6 +50,8 @@ This is a fairly complete project management plan that will step through the pro
 
 ### /code-review
 
+(Adapted from [this project management solution](https://github.com/Helmi/claude-simone))
+
 Analyze your recent work. Then defend the choices you (or Claude Code) made. 
 
 The discussion is with a senior/CTO who thinks he's John Carmack. Edit if you don't want to talk to John Carmack (I don't blame you, he's kinda a jerk) or your feelings are easily hurt.
