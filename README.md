@@ -2,7 +2,7 @@
 
 My personal tools for wrangling large projects with Claude Code. 
 
-Please note I am a very hands-on and optinionated coder, and my version of "vibe coding" involves furiously screaming at the screen while jabbing the escape key to tell the stupid AI how I know better than it does. Sometimes I'm even right.
+Please note I am a very hands-on and opinionated coder, and my version of "vibe coding" involves furiously screaming at the screen while jabbing the escape key to tell the stupid AI how I know better than it does. Sometimes I'm even right.
 
 These files address my personal need for organization and project planning, based on 30 years of working on insanely large projects. (Seriously, MMOs. They get big.)
 
