@@ -12,7 +12,7 @@ These files address my personal need for organization and project planning, base
 
 https://github.com/upstash/context7
 
-Almost a requirement for serious development, it allows Claude Code to query for the current state of library and API documentation for [a dizzying array of platforms and APIs](context7.com).
+Almost a requirement for serious development, it allows Claude Code to query for the current state of library and API documentation for [a dizzying array of platforms and APIs](https://context7.com).
 
 ### Install the Zen MCP server and use it
 
