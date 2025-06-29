@@ -48,4 +48,11 @@ This analyzes your project and researches best coding practices and writes them 
 
 This is a fairly complete project management plan that will step through the project management process, build out sprints, interrogate you on your priorities and decisions for them, and build implementation documentation. Very thorough. Will ask you for a plan created from a Plan Mode session to begin.
 
-Both of these are regular markdown files. Edit to suit.
+### /code-review
+
+Analyze your recent work. Then defend the choices you (or Claude Code) made. 
+
+The discussion is with a senior/CTO who thinks he's John Carmack. Edit if you don't want to talk to John Carmack (I don't blame you, he's kinda a jerk) or your feelings are easily hurt.
+
+
+These are regular markdown files. Edit to suit.
