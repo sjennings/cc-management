@@ -60,7 +60,7 @@ The discussion is with a senior/CTO who thinks he's John Carmack. Edit if you do
 
 (Adaped from [this reddit post](https://www.reddit.com/r/ClaudeAI/comments/1loxr2t/one_of_my_most_powerful_prompts_for_fixing/))
 
-!(https://i.imgflip.com/qgd83.jpg)
+![FIRE EVERYTHING!](https://i.imgflip.com/qgd83.jpg)
 
 Unleash multiple sub-agents to crawl your code, analyze it, and come up with a refactoring plan.
 
