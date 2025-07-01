@@ -1,8 +1,8 @@
-# CLAUDE.md Style Guide Maintainer
+# STYLE_GUIDE.md Maintainer
 
 Ultrathink: 
 
-Please analyze this codebase and create a CLAUDE.md file, which will be given to future instances of Claude Code to operate in this repository.
+Please analyze this codebase and create a `docs/STYLE_GUIDE.md` file, which will be given to future instances of Claude Code to operate in this repository.
 
 What to add:
 
@@ -12,9 +12,9 @@ High-level code architecture and structure so that future instances can be produ
 
 Usage notes:
 
-If there's already a CLAUDE.md, suggest improvements to it.
+If there's already a `docs/STYLE_GUIDE.md`, suggest improvements to it.
 
-When you make the initial CLAUDE.md, do not repeat yourself and do not include obvious instructions like "Provide helpful error messages to users", "Write unit tests for all new utilities", "Never include sensitive information (API keys, tokens) in code or commits"
+When you make the initial `docs/STYLE_GUIDE.md`, do not repeat yourself and do not include obvious instructions like "Provide helpful error messages to users", "Write unit tests for all new utilities", "Never include sensitive information (API keys, tokens) in code or commits"
 
 Avoid listing every component or file structure that can be easily discovered
 
@@ -30,7 +30,7 @@ Be sure to prefix the file with the following text:
 
 ```
 
-CLAUDE.md
+STYLE_GUIDE.md
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ```
@@ -38,7 +38,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Walk through the ENTIRE project and:
 - determine what programming language is being used
 - determine what libraries and platforms are being used
-- update your Claude.md based on best practices for best practices for those languages/platforms.
+- update `docs/STYLE_GUIDE.md` based on best practices for best practices for those languages/platforms.
 - this may be run iteratively, edit best practices that are already present. Do NOT remove ANYTHING, merely append. 
 - Consult with Zen if the MCP server is available.
 - Consult with context7 if the MCP server is available.
