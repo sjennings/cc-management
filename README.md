@@ -44,7 +44,7 @@ Claude should prompt you when to use this command. It's an attempt to bypass Cla
 
 ### /style-guide
 
-This analyzes your project and researches best coding practices and writes them to your CLAUDE.md file. Be sure to edit them later if it writes something you disagree with. Claude does a pretty good job of following them.
+This analyzes your project and researches best coding practices and writes them to a style guide file that is loaded by your CLAUDE.md file. Be sure to edit them later if it writes something you disagree with. Claude does a pretty good job of following them.
 
 ### /plan
 
