@@ -13,6 +13,10 @@
 - Always reference relevant ADRs when discussing architecture. 
 - Create or update ADRs for new architectural decisions.
 
+## Context Management
+- ALWAYS monitor your available remaining context.
+- Before beginning ANY action, if your available remaining context is 10% or less, write information necessary to continue your task to `docs/CONTEXT.md`. Then prompt me to /clear, followed by /init_context.
+
 ## Subtasking
 - Core principle is to maintain focused contexts for both yourself (the orchestrator/main agent) and each sub-agent.
 - Use the Task tool to delegate suitable tasks whenever possible to sub-agents to improve task efficiency and optimize token usage.
