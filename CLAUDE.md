@@ -1,11 +1,14 @@
 ## Key Architectural Decisions
-Technical decisions are documented in `docs/ADRs/`. 
+- Technical decisions are documented in `docs/ADRs/`.  
+- Always reference relevant ADRs when discussing architecture. 
+- Create or update ADRs for new architectural decisions.
 
-**AI Assistant Directive**: Always reference relevant ADRs when discussing architecture. Create or update ADRs for new architectural decisions.
+## Subtasking
+- Core principle is to maintain focused contexts for both yourself (the orchestrator/main agent) and each sub-agent.
+- Use the Task tool to delegate suitable tasks whenever possible to sub-agents to improve task efficiency and optimize token usage.
 
 ## Implementation Workflow
-
-- When exiting plan mode to begin implementation, ALWAYS save the implementation plan first as a markdown file in @docs/
+- When exiting plan mode to begin implementation, ALWAYS ask whether to save the implementation plan first as a markdown file in @docs/
 
 ## General Instructions
 - Do what has been asked; nothing more, nothing less
