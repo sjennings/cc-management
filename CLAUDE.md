@@ -25,7 +25,7 @@
 - When exiting plan mode to begin implementation, ALWAYS ask whether to save the implementation plan first as a markdown file in @docs/
 
 ## Coding Decisions
-- Detailed code style and rules is in `docs/CODE_STYLE.md`
+- Detailed code style and rules is in `docs/STYLE_GUIDE.md`
 - Code must ALWAYS be under 1000 lines and human-readable.
 - Always explain with comments why a given coding decision was taken.
 - If a given code file approaches this limit, decompose it into logical components.
