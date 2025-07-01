@@ -56,5 +56,12 @@ Analyze your recent work. Then defend the choices you (or Claude Code) made.
 
 The discussion is with a senior/CTO who thinks he's John Carmack. Edit if you don't want to talk to John Carmack (I don't blame you, he's kinda a jerk) or your feelings are easily hurt.
 
+### /fire-everything
+
+(Adaped from [this reddit post](https://www.reddit.com/r/ClaudeAI/comments/1loxr2t/one_of_my_most_powerful_prompts_for_fixing/))
+
+(https://i.imgflip.com/qgd83.jpg)
+
+Unleash multiple sub-agents to crawl your code, analyze it, and come up with a refactoring plan.
 
 These are regular markdown files. Edit to suit.
