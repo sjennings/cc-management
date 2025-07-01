@@ -38,6 +38,10 @@ If you don't have a foul mouth like I do, remove the last line. Instead tell it 
 
 ### Claude Code Commands
 
+### /init-context
+
+Claude should prompt you when to use this command. It's an attempt to bypass Claude's imperfect context /compact command.
+
 ### /style-guide
 
 This analyzes your project and researches best coding practices and writes them to your CLAUDE.md file. Be sure to edit them later if it writes something you disagree with. Claude does a pretty good job of following them.
