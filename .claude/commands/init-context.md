@@ -1,2 +1,0 @@
-- Load instructions from your previous session stored in 'docs/CONTEXT.md'
-- Once loaded, delete 'docs/CONTEXT.md'
