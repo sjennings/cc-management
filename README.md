@@ -50,7 +50,7 @@ This is a fairly complete project management plan that will step through the pro
 
 ### /implement
 
-This wll break out tasks detailed in /plan further and then begin working on them, with your input if needed.
+This wll break out tasks detailed in /plan further and then begin working on them, with your input if needed. Assumes you're using test-driven development, so edit if you're not doing that. (You should do that.)
 
 ### /code-review
 
