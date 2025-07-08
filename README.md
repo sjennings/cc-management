@@ -48,6 +48,10 @@ This analyzes your project and researches best coding practices and writes them 
 
 This is a fairly complete project management plan that will step through the project management process, build out sprints, interrogate you on your priorities and decisions for them, and build implementation documentation. Very thorough. Will ask you for a plan created from a Plan Mode session to begin.
 
+### /implement
+
+This wll break out tasks detailed in /plan further and then begin working on them, with your input if needed.
+
 ### /code-review
 
 (Adapted from [this project management solution](https://github.com/Helmi/claude-simone))
