@@ -4,7 +4,7 @@ Mark current phase as complete and intelligently handle next steps.
 
 **What this does:**
 
-1. Updates your implementation.md - marks current phase ✅ complete
+1. Updates your implementation markdown file for this sprint - marks current phase ✅ complete
 2. **Checks if all planned phases are complete**
 3. If yes: **Asks user for new feature ideas and updates planning docs**
 4. If no: Creates next phase implementation file with specific tasks
