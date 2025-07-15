@@ -1,118 +1,70 @@
-# implement.md
+### 3. Create Task List
 
-Create goal-focused implementation phases for $ARGUMENTS. Each phase should deliver a working, testable milestone.
+Ultrathink.
 
-## PLANNING
+After the user approves the Design, create an actionable implementation plan with a checklist of coding tasks based on the requirements and design.
+The tasks document should be based on the design document in 'docs/specs/{feature_name/requirements.md', so ensure it exists first.
 
-Work out a complete, detailed implementation plan. Ultrathink.
-Ask me when you are looking at making choices related to this implementation.
-When done, write the plan out to the sprint directory.
+**Constraints:**
 
-## IMPLEMENTATION
+- The model MUST create a 'docs/specs/{feature_name}/tasks.md' file if it doesn't already exist
+- The model MUST return to the design step if the user indicates any changes are needed to the design
+- The model MUST return to the requirement step if the user indicates that we need additional requirements
+- The model MUST create an implementation plan at 'docs/specs/{feature_name}/tasks.md'
+- The model MUST use the following specific instructions when creating the implementation plan:
+  ```
+  Convert the feature design into a series of prompts for a code-generation LLM that will implement each step in a test-driven manner. Prioritize best practices, incremental progress, and test-driven devdelopment, ensuring no big jumps in complexity at any stage. Make sure that each prompt builds on the previous prompts, and ends with wiring things together. There should be no hanging or orphaned code that isn't integrated into a previous step. Focus ONLY on tasks that involve writing, modifying, or testing code.
+  ```
+- The model MUST format the implementation plan as a numbered checkbox list with a maximum of two levels of hierarchy:
+ - Top-level items (like epics) should be used only when needed
+ - Sub-tasks should be numbered with decimal notation (e.g., 1.1, 1.2, 2.1)
+ - Each task will be identified with {feature_name}_{task_number}_{subtask_number} if it is a subtask, or {feature_name}_{task_number} if it is a main task. The task identifier should be listed first in the list descriptions and highlighted.
+ - Simple structure is preferred
+- The model MUST ensure each task item includes:
+ - A clear objective as the task description that involves writing, modifying, or testing code
+ - Additional information as sub-bullets under the task
+ - Specific references to requirements from the requirements document (referencing granular sub-requirements, not just user stories)
+- The model MUST ensure that the implementation plan is a series of discrete, manageable coding steps
+- The model MUST ensure each task references specific requirements from the requirement document
+- The model MUST NOT include excessive implementation details that are already covered in the design document
+- The model MUST assume that all context documents (feature requirements, design) will be available during implementation
+- The model MUST ensure each step builds incrementally on previous steps
+- The model MUST prioritize test-driven development where possible
+- The model MUST ensure the plan covers all aspects of the design that can be implemented through code
+- The model SHOULD sequence steps to validate core functionality early through code
+- The model MUST ensure that all requirements are covered by the implementation tasks
+- The model MUST offer to return to previous steps (requirements or design) if gaps are identified during implementation planning
+- The model MUST ONLY include tasks that can be performed by a coding agent (writing code, creating tests, etc.)
+- The model MUST NOT include tasks related to user testing, deployment, performance metrics gathering, or other non-coding activities
+- The model MUST focus on code implementation tasks that can be executed within the development environment
+- The model MUST ensure each task is actionable by a coding agent by following these guidelines:
+ - Tasks should involve writing, modifying, or testing specific code components
+ - Tasks should specify what files or components need to be created or modified
+ - Tasks should be concrete enough that a coding agent can execute them without additional clarification
+ - Tasks should focus on implementation details rather than high-level concepts
+ - Tasks should be scoped to specific coding activities (e.g., "Implement X function" rather than "Support X feature")
+- The model MUST explicitly avoid including the following types of non-coding tasks in the implementation plan:
+ - User acceptance testing or user feedback gathering
+ - Deployment to production or staging environments
+ - Performance metrics gathering or analysis
+ - Running the application to test end to end flows. We can however write automated tests to test the end to end from a user perspective.
+ - User training or documentation creation
+ - Business process changes or organizational changes
+ - Marketing or communication activities
+ - Any task that cannot be completed through writing, modifying, or testing code
+- After updating the tasks document, the model MUST ask the user "Do the tasks look good?" and wait for user response.
+- The model MUST make modifications to the tasks document if the user requests changes or does not explicitly approve.
+- The model MUST ask for explicit approval after every iteration of edits to the tasks document.
+- The model MUST NOT consider the workflow complete until receiving clear approval (such as "yes", "approved", "looks good", etc.).
+- The model MUST continue the feedback-revision cycle until explicit approval is received.
+- The model MUST stop once the task document has been approved.
 
-🎯 PHASE-BASED IMPLEMENTATION
-Goal: Break your project into phases where each phase delivers something that works and can be tested.
+**This workflow is ONLY for creating design and planning artifacts. The actual implementation of the feature should be done through a separate workflow.**
 
-Phase Template
-For each phase, answer:
+- The model MUST NOT attempt to implement the feature as part of this workflow
+- The model MUST clearly communicate to the user that this workflow is complete once the design and planning artifacts are created
+- The model MUST inform the user that they can begin executing tasks by typing /do_task {task_identifier} at this point.
 
-What works after this phase? (testable milestone)
-How do you test it? (validation method)
-What's the next logical step? (next phase goal)
-📋 IMPLEMENTATION PHASES
-Phase 1: [Core Foundation]
-Goal: Get the most basic version working
-
-Deliverable: What can you demo/test after this phase?
-
-Tasks:
-
- Setup task 1
- Core feature 1
- Basic test
-Success Test: How do you know this phase works?
-
-Duration: X days/weeks
-
-Phase 2: [First Extension]
-Goal: Add the next most important piece
-
-Deliverable: What new capability does this unlock?
-
-Tasks:
-
- Extension task 1
- Integration task
- Test the combination
-Success Test: How do you validate the new functionality?
-
-Duration: X days/weeks
-
-Phase 3: [Second Extension]
-Goal: Build on what you have
-
-Deliverable: What's the next working milestone?
-
-Tasks:
-
- Enhancement task 1
- Polish task
- End-to-end test
-Success Test: How do you verify it works end-to-end?
-
-Duration: X days/weeks
-
-Phase 4: [Polish & Deploy]
-Goal: Make it production-ready
-
-Deliverable: Deployed, working system
-
-Tasks:
-
- Deployment setup
- Performance testing
- Documentation
-Success Test: Can others use it successfully?
-
-Duration: X days/weeks
-
-🧪 TESTING STRATEGY
-
-We are using test driven development: for every feature, write the test first, knowing it will fail, then write the code to make the test pass
-
-Phase 1: Simple manual test - does basic flow work? Phase 2: Integration test - do parts work together? Phase 3: Feature test - does extended functionality work? Phase 4: User test - can real users accomplish their goals?
-
-📝 PHASE TRACKING
- Phase 1 - ⏳ Not Started
- Phase 2 - ⏳ Not Started
- Phase 3 - ⏳ Not Started
- Phase 4 - ⏳ Not Started
-Current Phase: Phase 1 Next Milestone: Date when Phase 1 should be complete
-
-💡 EXAMPLE PHASES
-Research Agent Example:
-
-Phase 1: Single query → response (test: ask one question, get answer)
-Phase 2: Multi-step research (test: complex question requiring multiple searches)
-Phase 3: Source validation (test: verify sources are accurate)
-Phase 4: Report generation (test: create formatted research report)
-Web App Example:
-
-Phase 1: User login + basic UI (test: user can sign up and see dashboard)
-Phase 2: Core feature working (test: main user workflow end-to-end)
-Phase 3: Data persistence (test: data survives page refresh)
-Phase 4: Production deployment (test: works for real users)
-E-commerce Site Example:
-
-Phase 1: Product display (test: browse products, see details)
-Phase 2: Shopping cart (test: add items, modify quantities)
-Phase 3: Checkout process (test: complete purchase flow)
-Phase 4: Order management (test: track orders, handle returns)
-API Service Example:
-
-Phase 1: Basic CRUD endpoints (test: create, read, update, delete records)
-Phase 2: Authentication (test: protected routes work with tokens)
-Phase 3: Business logic (test: complex operations work correctly)
 Phase 4: Production ready (test: handles load, has monitoring)
 Remember: Each phase should give you something you can actually use and test. If you can't test it, the phase isn't complete.
 
