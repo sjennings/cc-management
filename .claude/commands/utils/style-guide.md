@@ -1,6 +1,6 @@
 # STYLE_GUIDE.md Maintainer
 
-Ultrathink: 
+Ultrathink:
 
 Please analyze this codebase and create a `docs/STYLE_GUIDE.md` file, which will be given to future instances of Claude Code to operate in this repository.
 
@@ -28,18 +28,14 @@ Do not make up information such as "Common Development Tasks", "Tips for Develop
 
 Be sure to prefix the file with the following text:
 
-```
-
 STYLE_GUIDE.md
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-```
-
 Walk through the ENTIRE project and:
+
 - determine what programming language is being used
 - determine what libraries and platforms are being used
 - update `docs/STYLE_GUIDE.md` based on best practices for best practices for those languages/platforms.
-- this may be run iteratively, edit best practices that are already present. Do NOT remove ANYTHING, merely append. 
+- this may be run iteratively, edit best practices that are already present. Do NOT remove ANYTHING, merely append.
 - Consult with Zen if the MCP server is available.
 - Consult with context7 if the MCP server is available.
-
