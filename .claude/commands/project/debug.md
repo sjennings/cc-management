@@ -1,10 +1,10 @@
-# Debug Command - Five Whys with Linear Integration
+# Enhanced Debug Command - Adaptive Root Cause Analysis
 
-A systematic debugging command that implements the Five Whys methodology with test-driven development and Linear issue tracking.
+A systematic debugging command that combines Five Whys methodology with adaptive framework selection, test-driven development, and Linear issue tracking.
 
 ## Description
 
-This command helps debug issues using the Five Whys root cause analysis methodology. It creates reproduction tests, tracks investigation progress in Linear, and ensures all debugging follows TDD principles.
+This enhanced debug command helps analyze bugs using the most appropriate debugging framework based on problem classification. It creates reproduction tests, maintains a debug session log, tracks investigation progress in Linear, and ensures all debugging follows TDD principles with built-in safeguards against common pitfalls.
 
 ## Usage
 
@@ -13,14 +13,17 @@ This command helps debug issues using the Five Whys root cause analysis methodol
 ## Variables
 
 - ISSUE: The problem or symptom to analyze
+- BUG_TYPE: Classification of the bug (Logic/State/Integration/Performance/Configuration/Mystery)
 - PARENT_ISSUE_ID: Linear ID of the feature where the bug was found
 - DEBUG_ISSUE_ID: Linear ID created for investigation (if needed)
+- DEBUG_SESSION_ID: Unique identifier for this debug session
+- ITERATION_COUNT: Current debugging iteration (max 4 before escalation)
 
 ## Workflow
 
-### Step 1: Initial Problem Assessment
+### Step 1: Initial Problem Assessment & Classification
 
-Gather essential information:
+#### Gather Essential Information
 ```
 PROBLEM STATEMENT:
 - What test is failing? (or describe the issue)
@@ -32,227 +35,315 @@ PROBLEM STATEMENT:
 - Related feature (Linear ID):
 ```
 
+#### Systematic Observation Checklist
+Gather ALL relevant data before analysis:
+- [ ] Complete error messages and stack traces
+- [ ] System state at failure point (memory dumps, logs)
+- [ ] Recent changes (`git log --oneline -10`)
+- [ ] Environment differences (dev/staging/prod)
+- [ ] Reproduction rate and specific conditions
+- [ ] Performance metrics (if applicable)
+- [ ] Related test failures
+
+#### Problem Classification
+Select the bug type to guide debugging approach:
+```
+[ ] 💭 Logic Error - Incorrect output from correct input
+    → Focus: Data flow and transformation analysis
+    
+[ ] 💾 State Error - Incorrect data in memory/database/cache
+    → Focus: State transitions and race conditions
+    
+[ ] 🔌 Integration Error - Failure at component boundaries
+    → Focus: API contracts and data exchange
+    
+[ ] ⚡ Performance Error - Correct but too slow
+    → Focus: Profiling and resource usage
+    
+[ ] ⚙️ Configuration Error - Environment-specific failure
+    → Focus: Config differences and dependencies
+    
+[ ] ❓ Complete Mystery - No clear pattern or cause
+    → Focus: First principles and assumptions
+```
+
+#### Initialize Debug Session
+```bash
+# Create session tracking
+DEBUG_SESSION_ID="debug_$(date +%Y%m%d_%H%M%S)"
+ITERATION_COUNT=0
+
+# Initialize debug log
+cat > ${DEBUG_SESSION_ID}.md << EOF
+# Debug Session - $(date)
+## Problem: ${ISSUE}
+## Classification: ${BUG_TYPE}
+## Parent Feature: ${PARENT_ISSUE_ID}
+
+### Initial Observations
+$(echo "Paste gathered data here")
+
+---
+EOF
+```
+
 ### Step 2: Create or Verify Reproduction Test
 
 ```csharp
 [Test]
 public void ReproduceBug_[DescriptiveName]()
 {
-    // Arrange: Set up exact conditions
+    // Arrange: Set up exact conditions that trigger the bug
     
     // Act: Perform the failing operation
     
-    // Assert: Verify the bug occurs
+    // Assert: Verify the bug occurs consistently
     Assert.Fail("Bug reproduced - now fix it");
 }
 ```
 
-### Step 3: Five Whys Analysis
+**Anti-patterns to avoid:**
+- ❌ Debugging without a reproduction test
+- ❌ Tests that only sometimes fail
+- ❌ Overly complex reproduction scenarios
 
-For each "why" level:
+### Step 3: Adaptive Framework Selection
+
+Based on bug type and initial observations, select the optimal debugging framework:
+
+#### Framework Selection Matrix
+| Bug Type | Primary Frameworks | When to Use |
+|----------|-------------------|-------------|
+| **Logic Error** | 1. Five Whys<br>2. Differential Analysis<br>3. Rubber Duck | 1. Clear error to trace<br>2. Works in A but not B<br>3. Complex logic flow |
+| **State Error** | 1. Timeline Analysis<br>2. State Comparison<br>3. Bisection | 1. Corruption over time<br>2. Good vs bad states<br>3. Finding when it broke |
+| **Integration Error** | 1. Contract Testing<br>2. Message Tracing<br>3. Five Whys | 1. API mismatches<br>2. Async communication<br>3. Clear failure point |
+| **Performance Error** | 1. Profiling<br>2. Bottleneck Analysis<br>3. Differential | 1. CPU/Memory usage<br>2. System constraints<br>3. Perf regression |
+| **Configuration Error** | 1. Differential Analysis<br>2. Dependency Audit<br>3. Binary Search | 1. Environment diffs<br>2. Version conflicts<br>3. Config isolation |
+| **Complete Mystery** | 1. First Principles<br>2. Systematic Elimination<br>3. Correlation Analysis | 1. Question everything<br>2. Rule out categories<br>3. Find patterns |
+
+### Step 4: Framework-Specific Investigation
+
+#### For Five Whys (Default for simple cases)
 ```
+ITERATION ${ITERATION_COUNT}:
+
 WHY #[1-5]: [Question]
 HYPOTHESIS: [Proposed cause]
-TEST TO VERIFY: [Test code to confirm hypothesis]
+TEST TO VERIFY: [Test code or investigation method]
 EVIDENCE: [Test results]
 CONCLUSION: [Verified cause or need to dig deeper]
 ```
 
-### Step 4: Linear Issue Management
+#### For Differential Analysis
+```
+WORKING SCENARIO:
+- Environment/Context:
+- Behavior:
 
-#### Quick Investigation (< 30 minutes)
+BROKEN SCENARIO:
+- Environment/Context:
+- Behavior:
+
+DIFFERENCES IDENTIFIED:
+1. [Difference]
+2. [Difference]
+
+TESTING EACH DIFFERENCE:
+[Systematic isolation of variables]
+```
+
+#### For Timeline Analysis
+```
+TIMELINE OF EVENTS:
+T-0: [Latest known good state]
+T+1: [First action]
+T+2: [Second action]
+...
+T+N: [Failure observed]
+
+CRITICAL WINDOW: Between T+[X] and T+[Y]
+INVESTIGATION FOCUS: [What happened in this window]
+```
+
+**Analysis Depth Levels:**
+- **Initial Pass**: Follow the obvious trail
+- **Deep Dive**: Question assumptions, look for patterns
+- **Systematic Review**: Examine architecture and emergent behaviors
+
+### Step 5: Iteration Control
+
+After each investigation cycle:
+
+```bash
+ITERATION_COUNT=$((ITERATION_COUNT + 1))
+
+# Log iteration results
+cat >> ${DEBUG_SESSION_ID}.md << EOF
+
+## Iteration ${ITERATION_COUNT} - $(date)
+### Framework Used: ${SELECTED_FRAMEWORK}
+### Investigation Results
+${INVESTIGATION_SUMMARY}
+### Next Steps
+${NEXT_ACTION}
+
+---
+EOF
+
+# Check iteration limit
+if [ ${ITERATION_COUNT} -ge 4 ]; then
+    echo "⚠️ Maximum iterations reached. Escalating..."
+    # Prepare comprehensive handoff documentation
+fi
+```
+
+### Step 6: Linear Issue Management
+
+#### Quick Investigation (< 30 minutes, < 2 iterations)
 - Analyze without creating Linear issue
 - Create issue only when root cause is found
 - Link as sub-issue to affected feature
 
-#### Complex Investigation (> 30 minutes or multiple whys)
+#### Complex Investigation (> 30 minutes or > 2 iterations)
 - Create investigation issue immediately
-- Track each "why" as a comment
+- Track each iteration as a comment
+- Attach debug session log
 - Update with findings in real-time
 - Convert to proper bug report when root cause found
 
-### Step 5: Resolution Documentation
+### Step 7: Resolution Documentation
 
 When root cause is identified:
-1. Create/update Linear bug issue with:
-   - Root cause summary
-   - Chain of causation (all 5 whys)
-   - Recommended fix
-   - Prevention strategy
-   
-2. Implement fix using TDD:
-   - Write test for correct behavior
-   - Implement minimal fix
-   - Verify all tests pass
-   - Update Linear with implementation details
 
-## Implementation Process
+1. **Update Debug Log**
+```markdown
+## ROOT CAUSE FOUND - $(date)
+### Summary
+[One sentence description]
 
-### Phase 1: Problem Identification
-```bash
-# Start debugging
-/project:debug "Units can move through impassable terrain"
+### Detailed Analysis
+[Full explanation with evidence]
 
-# System prompts for context
-Enter parent feature Linear ID (e.g., PRJ-42): PRJ-15
+### Fix Strategy
+[Proposed solution]
+
+### Prevention Measures
+[How to avoid similar issues]
 ```
 
-### Phase 2: Reproduction Test
-```csharp
-// Create failing test first
-[Test]
-public void Unit_CannotMove_ThroughImpassableTerrain()
-{
-    // Arrange
-    var unit = CreateUnit(new HexCoordinate(0, 0));
-    var impassableHex = new HexCoordinate(1, 0);
-    SetTerrain(impassableHex, TerrainType.Impassable);
-    
-    // Act & Assert
-    Assert.Throws<InvalidMoveException>(() => 
-        unit.MoveTo(impassableHex));
-}
+2. **Create/Update Linear Issue**
 ```
-
-### Phase 3: Five Whys Investigation
-```
-WHY 1: Why can the unit move through impassable terrain?
-HYPOTHESIS: Movement validation doesn't check terrain type
-TEST: Add logging to movement validation
-EVIDENCE: No terrain check in MoveTo() method
-CONCLUSION: Missing terrain validation
-
-WHY 2: Why is terrain validation missing?
-HYPOTHESIS: Movement system developed before terrain system
-TEST: Check git history of both systems
-EVIDENCE: Movement: commit abc123, Terrain: commit def456 (later)
-CONCLUSION: Systems not integrated
-
-WHY 3: Why weren't systems integrated?
-HYPOTHESIS: No integration tests between systems
-TEST: Search for movement+terrain tests
-EVIDENCE: Zero integration tests found
-CONCLUSION: Missing test coverage
-
-WHY 4: Why are integration tests missing?
-HYPOTHESIS: No clear testing strategy for system interactions
-TEST: Review test organization and patterns
-EVIDENCE: Only unit tests per system, no integration folder
-CONCLUSION: Architectural gap in test strategy
-
-WHY 5: Why is there an architectural gap?
-HYPOTHESIS: Lack of system integration planning
-TEST: Review design documents for integration points
-EVIDENCE: Each system designed in isolation
-ROOT CAUSE: Missing architectural documentation for system interactions
-```
-
-### Phase 4: Linear Documentation
-
-Create bug issue in Linear:
-```
-Title: [BUG] Units can move through impassable terrain
-Parent: PRJ-15 (Movement System)
-Labels: bug, movement, terrain
+Title: [BUG] ${ISSUE}
+Parent: ${PARENT_ISSUE_ID}
+Labels: bug, ${BUG_TYPE}
 
 Description:
 ## Root Cause Analysis
+- Debug Session: ${DEBUG_SESSION_ID}
+- Iterations Required: ${ITERATION_COUNT}
+- Framework Used: ${SELECTED_FRAMEWORK}
 
-**Surface Symptom**: Units can move through impassable terrain
-**Root Cause**: Missing architectural documentation for system interactions
+[Include full analysis from debug log]
 
-### Five Whys Chain:
-1. Movement validation doesn't check terrain type
-2. Movement system developed before terrain system
-3. No integration tests between systems
-4. No clear testing strategy for system interactions
-5. Lack of system integration planning
+## Recommended Fix
+[Implementation details]
 
-### Recommended Fix:
-1. Add terrain validation to MoveTo() method
-2. Create integration tests for movement+terrain
-3. Document system interaction points
-4. Add ADR for cross-system integration patterns
-
-### Prevention:
-- Establish integration test requirements
-- Create system interaction matrix
-- Add integration tests to DoD
+## Prevention Strategy
+[Architectural improvements, test coverage, monitoring]
 ```
+
+3. **Implement Fix with TDD**
+- Write test for correct behavior
+- Implement minimal fix
+- Verify all tests pass
+- Update Linear with implementation details
+
+## Common Anti-patterns to Avoid
+
+### During Investigation
+- ❌ Testing multiple hypotheses simultaneously
+- ❌ Making assumptions without evidence
+- ❌ Ignoring contradictory data
+- ❌ Changing multiple variables at once
+- ❌ Skipping reproduction test creation
+
+### During Analysis
+- ❌ Confirmation bias (seeing what you expect)
+- ❌ Analysis paralysis (endless investigation)
+- ❌ Fixing symptoms instead of root causes
+- ❌ Not documenting failed hypotheses
+
+### During Resolution
+- ❌ Implementing fix before understanding cause
+- ❌ Over-engineering the solution
+- ❌ Forgetting to add regression tests
+- ❌ Not updating documentation
 
 ## Example Debug Session
 
 ```bash
 > /project:debug "Camera jumps when clicking on hex"
 
-Gathering information...
-Related feature Linear ID: PRJ-32 (Camera System)
+=== Problem Classification ===
+Select bug type:
+[2] State Error - Camera state corrupted on click
 
-Creating reproduction test...
+=== Gathering Information ===
+Related feature Linear ID: HEX-32 (Camera System)
+Creating debug session: debug_20240115_142305
+
+=== Creating Reproduction Test ===
 [Creates CameraTest.cs with failing test]
 
-Starting Five Whys analysis...
+=== Framework Selection ===
+Bug Type: State Error
+Recommended: Timeline Analysis, State Comparison
+Selected: Timeline Analysis (async events suspected)
 
-WHY 1: Why does camera jump on click?
-Testing hypothesis: Click event triggers multiple camera updates
-Evidence: Camera.SetPosition called 3 times per click
-Proceeding to WHY 2...
+=== Investigation: Iteration 1 ===
+Analyzing event timeline...
+T-0: Camera at position (10, 10)
+T+1: Mouse click event fired
+T+2: Hex selection event triggered
+T+3: Camera update called (→ 15, 15)
+T+4: UI click event bubbles up
+T+5: Camera update called again (→ 20, 10)
+T+6: Animation frame update
+T+7: Camera update called third time (→ 25, 25)
 
-[After 2 whys, complexity apparent]
-Creating Linear investigation issue PRJ-51...
-Continuing analysis with Linear tracking...
+Critical window: T+3 to T+7 (multiple updates)
+Hypothesis: Event bubbling causes multiple camera updates
 
-[After completing 5 whys]
-Root cause found: Event bubbling through UI layers
-Updating Linear PRJ-51 with full analysis...
-Creating fix with TDD approach...
+[After 2 iterations, complexity apparent]
+Creating Linear investigation issue HEX-51...
 
-Debug complete. See Linear PRJ-51 for full documentation.
+=== Investigation: Iteration 3 ===
+Root cause found: UI event bubbling through three layers
+Each layer independently updates camera position
+
+=== Resolution ===
+Updating Linear HEX-51 with full analysis...
+Implementing event consumption at UI layer...
+Adding regression test for event bubbling...
+
+Debug complete. Full log: debug_20240115_142305.md
+Linear issue: HEX-51
 ```
 
-## Linear Integration Details
+## Success Metrics
 
-### Team & Project IDs
-- Team ID: `YOU_NEED_TO_EDIT_THIS!`
-- Project ID: `YOU_NEED_TO_EDIT_THIS_TOO!`
-
-### Issue Creation Logic
-```
-IF investigation_time < 30_minutes AND root_cause_found:
-    Create bug issue directly under parent feature
-ELIF investigation_time >= 30_minutes OR multiple_whys_needed:
-    Create investigation issue immediately
-    Track progress in comments
-    Convert to bug issue when root cause found
-```
-
-### Status Flow
-```
-Investigation Issue:
-Todo → In Progress → Done (converted to bug)
-
-Bug Issue:
-Todo → In Progress → In Review → Done
-```
-
-## Best Practices
-
-1. **Always Start with a Test**: No debugging without reproduction
-2. **Document Each Why**: Full transparency in Linear
-3. **Stay Focused**: One bug at a time
-4. **Think Systemically**: Look for architectural issues
-5. **Prevent Recurrence**: Add tests and documentation
+- [ ] Root cause identified (not just symptom)
+- [ ] Reproduction test created
+- [ ] Debug session documented
+- [ ] Fix implemented with TDD
+- [ ] Regression test added
+- [ ] Linear documentation complete
+- [ ] Architectural improvements identified
+- [ ] Team learning captured
 
 ## Integration with Existing Commands
 
 - Works with `/project:do-task` for implementing fixes
+- Can trigger `/project:adr` for architectural decisions
 - Updates tracked by `/project:update`
-
-## Success Metrics
-
-- Root cause found (not just symptom fixed)
-- Reproduction test created
-- Fix implemented with TDD
-- Regression test added
-- Linear documentation complete
-- Architectural improvements identified
+- Debug logs stored for `/project:retrospective`
